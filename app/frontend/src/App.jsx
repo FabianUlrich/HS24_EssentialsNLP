@@ -1,21 +1,15 @@
-import { useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from "react-query";
+import "./App.css";
+import {SentimentAnalysis} from "./SentimentAnalysis.jsx";
 
-import './App.css'
+const queryClient = new QueryClient();
 
 function App() {
-
-  const { data, error, isLoading } = useQuery('helloData', async () => (await axios.get('/api/hello')).data)
-
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error fetching data: {error.message}</p>
-
   return (
-    <>
-      <div>
-        <p>{JSON.stringify(data)}</p>
-      </div>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <SentimentAnalysis />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
