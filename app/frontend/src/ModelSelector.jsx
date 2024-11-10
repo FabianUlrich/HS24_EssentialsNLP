@@ -1,4 +1,4 @@
-import {Fragment, useState} from 'react'
+import {Fragment, useCallback, useEffect, useState} from 'react'
 import {Listbox, Transition} from '@headlessui/react'
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 
@@ -8,12 +8,19 @@ const models = [
     {name: 'Cookie Monster'},
 ]
 
-export function Dropdown() {
+export function ModelSelector({onChangedCallback}) {
     const [selected, setSelected] = useState(models[0])
+    const onChange = useCallback((model) => {
+        setSelected(model);
+        onChangedCallback(model.name);
+    }, [onChangedCallback, setSelected])
 
+    useEffect(() => {
+        onChangedCallback(selected.name)
+    }, []);
     return <>
         <label className="text-sm text-gray-600 mb-1">Model</label>
-        <Listbox value={selected} onChange={setSelected}>
+        <Listbox value={selected} onChange={onChange}>
             <div className="relative mt-1">
                 <Listbox.Button
                     className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
