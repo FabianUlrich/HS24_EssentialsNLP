@@ -21,7 +21,7 @@ export function SentimentAnalysis() {
                     <Card animationIndex={1}>
                         <ModelSelector onChangedCallback={(model) => setSelectedModel(model)} />
                     </Card>
-                    <Card className="flex-grow overflow-scroll" animationIndex={1}>
+                    <Card className="flex-grow overflow-auto" animationIndex={1}>
                         <div className="h-full"><TextSentiments model={selectedModel} text={editorText} /></div>
                     </Card>
                 </div>

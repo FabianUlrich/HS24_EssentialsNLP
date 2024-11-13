@@ -27,7 +27,7 @@ export function TextEditor({onChangeCallback}) {
     return <div className="flex flex-col h-full">
         <label className="text-sm text-gray-600 flex-grow-0 mb-1">E-Mail</label>
         <Textarea
-            className="p-2 rounded-lg border border-gray-500 font-mono overflow-scroll flex-grow resize-none"
+            className="p-2 rounded-lg border font-mono border-gray-500 overflow-auto flex-grow resize-none"
             onChange={onChange}
             defaultValue={sampleEmail}
         />
