@@ -3,20 +3,20 @@ import {Listbox, Transition} from '@headlessui/react'
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 
 const models = [
-    {name: 'BERT'},
-    {name: 'Ernie'},
-    {name: 'Cookie Monster'},
+    {name: 'XLnet fine-tuned', id: "XLnetwFT"},
+    {name: 'BERT fine-tuned', id: "BertwFT"},
+    {name: 'RoBERTa fine-tuned', id: "RoBERTawFT"},
 ]
 
 export function ModelSelector({onChangedCallback}) {
     const [selected, setSelected] = useState(models[0])
     const onChange = useCallback((model) => {
         setSelected(model);
-        onChangedCallback(model.name);
+        onChangedCallback(model.id);
     }, [onChangedCallback, setSelected])
 
     useEffect(() => {
-        onChangedCallback(selected.name)
+        onChangedCallback(selected.id)
     }, []);
     return <>
         <label className="text-sm text-gray-600 mb-1">Model</label>

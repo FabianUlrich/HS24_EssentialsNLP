@@ -1,5 +1,10 @@
 import {motion} from "framer-motion";
 
+/**
+ * Displays the title and project contributors
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function Title() {
     const githubUrl = "https://github.com/FabianUlrich/HS24_EssentialsNLP";
     const contributors = [
@@ -10,7 +15,7 @@ export function Title() {
 
     return (
         <>
-            <div className="text-5xl font-bold text-white">
+            <div className="text-2xl flex gap-3 md:text-5xl font-bold text-white">
                 {"E-Mail Sentiment Analysis".split(" ").map((el, i) => (
                     <motion.span
                         initial={{opacity: 0}}
@@ -25,7 +30,7 @@ export function Title() {
                     </motion.span>
                 ))}
             </div>
-            <div className="flex gap-3">
+            <div className="flex items-center max-md:pt-2">
                 <motion.a className="text-white border-r border-white pr-3"
                           href={githubUrl}
                           target="_blank"
@@ -36,19 +41,21 @@ export function Title() {
                               delay: 0.2 + (3 / 10),
                           }}>GitHub
                 </motion.a>
-                {contributors.map((contributor, index) => (
-                    <motion.a key={index}
-                              className="text-white"
-                              href={contributor.url}
-                              target="_blank"
-                              initial={{opacity: 0}}
-                              animate={{opacity: 1}}
-                              transition={{
-                                  duration: 0.25,
-                                  delay: 0.2 + ((index + 4) / 10),
-                              }}>
-                    {contributor.name}
-                </motion.a>))}
+                <div className="flex flex-col md:flex-row gap-2 ml-2">
+                    {contributors.map((contributor, index) => (
+                        <motion.a key={index}
+                                  className="text-white whitespace-nowrap"
+                                  href={contributor.url}
+                                  target="_blank"
+                                  initial={{opacity: 0}}
+                                  animate={{opacity: 1}}
+                                  transition={{
+                                      duration: 0.25,
+                                      delay: 0.2 + ((index + 4) / 10),
+                                  }}>
+                        {contributor.name}
+                    </motion.a>))}
+                </div>
             </div>
         </>
     );

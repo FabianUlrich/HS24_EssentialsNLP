@@ -1,15 +1,39 @@
 import {useQuery} from "react-query";
 import {motion} from "framer-motion";
+import axios from "axios";
 
+/**
+ * Gets the sentiments of all sentences in the given text using the given model
+ * @param model
+ * @param text
+ * @returns {Promise<*>}
+ */
 const fetchSentiments = async (model, text) => {
-    return text.split(/[.?!]/)
-        .map(sentence => sentence.trim())
-        .filter(sentence => sentence.length > 0)
-        .map(sentence => {
-            return {text: sentence, sentiment: ["Positive", "Neutral", "Negative"][Math.floor(Math.random() * 3)]}
+    try {
+        const response = await axios.post("api/classify", { // Update the URL if necessary
+            model,
+            text
         });
+
+        const {results} = response.data;
+
+        return results.map(({sentence, predicted_label}) => ({
+            text: sentence,
+            sentiment: ["Neutral", "Negative", "Positive"][predicted_label] // Map label numbers to sentiment strings
+        }));
+    } catch (error) {
+        console.error("Error fetching sentiments:", error);
+        throw new Error("Failed to fetch sentiments from the backend.");
+    }
 };
 
+/**
+ * Loads and displays the sentiments in a text
+ * @param model
+ * @param text
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function TextSentiments({model, text}) {
     const {data: textSentiments} = useQuery(`highlightData_${model}_${text}`, () => fetchSentiments(model, text));
 

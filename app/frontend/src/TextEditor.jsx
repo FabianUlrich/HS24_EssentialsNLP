@@ -11,6 +11,12 @@ const sampleEmail = "We have decided not to make any reps about these plans, sin
     "Michelle\n" +
     "\n";
 
+/**
+ * Editor for text that should be analyzed. The changed text is emitted using the onChangeCallback with a debounce of 1s.
+ * @param onChangeCallback
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function TextEditor({onChangeCallback}) {
     const emitText = useDebouncedCallback((textValue) => {
         onChangeCallback(textValue);
@@ -24,12 +30,13 @@ export function TextEditor({onChangeCallback}) {
         emitText(sampleEmail);
     }, []);
 
-    return <div className="flex flex-col h-full">
-        <label className="text-sm text-gray-600 flex-grow-0 mb-1">E-Mail</label>
+    return <>
+        <label className="text-sm text-gray-600 flex-grow-0 mb-1">E-Mail (or any other text)</label>
         <Textarea
-            className="p-2 rounded-lg border font-mono border-gray-500 overflow-auto flex-grow resize-none"
+            className="p-2 rounded-lg border font-mono max-sm:text-sm border-gray-500 overflow-auto flex-grow resize-none"
             onChange={onChange}
             defaultValue={sampleEmail}
         />
-    </div>
+    </>
+
 }
